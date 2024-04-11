@@ -3,17 +3,15 @@ import styles from "./ToDoList.module.scss";
 import { TodoInterface } from "./ToDoList";
 import { deleteFunction, toggleFunction } from "./ToDoItems";
 
-const ToDoItem = ({
-  item,
-  toggleTodo,
-  deleteTodo,
-}: {
+export interface ToDoItemProps {
   item: TodoInterface;
   toggleTodo: toggleFunction;
   deleteTodo: deleteFunction;
-}) => {
+}
+
+const ToDoItem = ({ item, toggleTodo, deleteTodo }: ToDoItemProps) => {
   return (
-    <li >
+    <li>
       <label>
         <input
           type="checkbox"
