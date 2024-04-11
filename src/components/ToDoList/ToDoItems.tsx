@@ -19,6 +19,7 @@ const ToDoItems = ({ todos, toggleTodo, deleteTodo }: ItemsProps) => {
         {todos.length === 0 && "No ToDos"}
         {todos.map((item) => (
           <ToDoItem
+            key={item.id}
             item={item}
             toggleTodo={toggleTodo}
             deleteTodo={deleteTodo}
