@@ -21,11 +21,11 @@ const ToDoList = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (todos?.length > 0) {
-  //     localStorage.setItem("ITEMS", JSON.stringify(todos));
-  //   }
-  // }, [todos]);
+  useEffect(() => {
+    if (todos?.length > 0) {
+      localStorage.setItem("ITEMS", JSON.stringify(todos));
+    }
+  }, [todos]);
 
   function addTodo(title: string) {
     const newTodo = { id: crypto.randomUUID(), title, completed: false };
@@ -33,10 +33,13 @@ const ToDoList = () => {
     setTodos((prev) => {
       return [...prev, newTodo];
     });
-
-    const localTodos = localStorage.getItem("ITEMS") ?? "";
-    const localTodosArray = JSON.parse(localTodos);
-    localStorage.setItem("ITEMS", JSON.stringify([...localTodosArray, newTodo]));
+    // this doesnt't work
+    // const localTodos = localStorage.getItem("ITEMS") ?? "";
+    // const localTodosArray = JSON.parse(localTodos);
+    // localStorage.setItem(
+    //   "ITEMS",
+    //   JSON.stringify([...localTodosArray, newTodo])
+    // );
   }
 
   function toggleTodo(id: string, completed: boolean) {
@@ -52,6 +55,9 @@ const ToDoList = () => {
 
   function deleteTodo(id: string) {
     setTodos((todos) => todos.filter((todo) => id !== todo.id));
+    if (todos.length == 1) { //fix of the bug with deleting the last item
+      localStorage.setItem("ITEMS", "[]");
+    }
   }
 
   return (
@@ -62,7 +68,6 @@ const ToDoList = () => {
         toggleTodo={toggleTodo}
         deleteTodo={deleteTodo}
       />
-      <button onClick={() => console.log(todos)}>Console.log</button>
     </>
   );
 };
