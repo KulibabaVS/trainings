@@ -13,7 +13,7 @@ const ToDoItem = ({
   deleteTodo: deleteFunction;
 }) => {
   return (
-    <li key={item.id}>
+    <li >
       <label>
         <input
           type="checkbox"

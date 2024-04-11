@@ -11,17 +11,20 @@ export interface TodoInterface {
 
 const ToDoList = () => {
   const [todos, setTodos] = useState<Array<TodoInterface>>([]);
+
   useEffect(() => {
     const localValue: string | null = localStorage.getItem("ITEMS");
-    if (localValue !== null) {
-      console.log(localValue);
+    if (localValue != null && JSON.parse(localValue).length > 0) {
       setTodos(JSON.parse(localValue));
     }
-
   }, []);
+
   useEffect(() => {
-    localStorage.setItem("ITEMS", JSON.stringify(todos));
+    if (todos.length > 0) {
+      localStorage.setItem("ITEMS", JSON.stringify(todos));
+    }
   }, [todos]);
+
   function addTodo(title: string) {
     setTodos((prev) => {
       return [...prev, { id: crypto.randomUUID(), title, completed: false }];
@@ -51,6 +54,7 @@ const ToDoList = () => {
         toggleTodo={toggleTodo}
         deleteTodo={deleteTodo}
       />
+      <button onClick={() => console.log(todos)}>Console.log</button>
     </>
   );
 };
